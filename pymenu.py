@@ -1,14 +1,14 @@
-# menu.py
+# pymenu.py
 
-import pygame, simplebutton, sys
+import pygame, pybutton, sys
 from pygame.locals import *
 
-GREY = (100, 100, 100)
+GRAY = (100, 100, 100)
 WHITE = (255, 255, 255)
 
 BACK, NEW, CHALLENGE, ABOUT = range(0,4)
 
-class Menu(object):
+class PyMenu(object):
 	""" A class that can create and draw a simple game menu 
 		with different buttons and colors, from where the
 		various game modes can be accessed by mouse clicks. """
@@ -17,53 +17,53 @@ class Menu(object):
 		""" Creates the necessary buttons and colors for a basic game menu. """
 		# menu index
 		self._index = 1
-		self.menu_color = menucolor
+		self.menucolor = menucolor
 		# menu buttons
-		self.title_button = simplebutton.Button(width/2, 45, WHITE, self.menu_color, self.menu_color, "My great Game")
-		self.back_button = simplebutton.Button(width/2, 100, WHITE, self.menu_color, GREY, "Back to Game")
-		self.new_button = simplebutton.Button(width/2, 130, WHITE, self.menu_color, GREY, "New Game")
-		self.challenge_button = simplebutton.Button(width/2, 160, WHITE, self.menu_color, GREY, "Challenge")
-		self.about_button = simplebutton.Button(width/2, 190, WHITE, self.menu_color, GREY, "About")
-		self.quit_button = simplebutton.Button(width/2, 220, WHITE, self.menu_color, GREY, "Quit")
-		self.buttons = [self.back_button, self.new_button, self.challenge_button, self.about_button, self.quit_button]
+		self.titleButton = pybutton.PyButton(width/2, 45, WHITE, self.menucolor, self.menucolor, "My Game")
+		self.backButton = pybutton.PyButton(width/2, 100, WHITE, self.menucolor, GRAY, "Back to Game")
+		self.newButton = pybutton.PyButton(width/2, 130, WHITE, self.menucolor, GRAY, "New Game")
+		self.challengeButton = pybutton.PyButton(width/2, 160, WHITE, self.menucolor, GRAY, "Challenge")
+		self.aboutButton = pybutton.PyButton(width/2, 190, WHITE, self.menucolor, GRAY, "About")
+		self.quitButton = pybutton.PyButton(width/2, 220, WHITE, self.menucolor, GRAY, "Quit")
+		self.buttons = [self.backButton, self.newButton, self.challengeButton, self.aboutButton, self.quitButton]
 
 		# deactivate buttons
-		for button in [self.title_button, self.back_button]:
-			button.set_inactive()
+		for button in [self.titleButton, self.backButton]:
+			button.setInactive()
 
 	def draw(self, surface):
 		""" Draws the menu screen on the surface. """
 		while True:
 			# check for events
-			self._check_events()
+			self._checkEvents()
 			# draw background
-			surface.fill(self.menu_color)
+			surface.fill(self.menucolor)
 			# draw buttons
-			self.title_button.draw(surface)
+			self.titleButton.draw(surface)
 			for button in self.buttons:
 				button.draw(surface)
 
 			# highlight buttons
 			for button in self.buttons:
 				if button.selected:
-					button.set_highlighted()
+					button.setHighlighted()
 				else:
-					button.set_normal()
+					button.setHormal()
 
 			# update menu
 			pygame.display.update()
 
-	def _check_events(self):
+	def _checkEvents(self):
 		""" Checks for pygame events. """
 		for event in pygame.event.get():
 			# check if player quits
-			self._check_quit(event)
+			self._checkQuit(event)
 			# check for keyboard events
-			self._check_keyboard(event)
+			self._checkKeyboard(event)
 			# check for button events
-			self._check_mouse(event)
+			self._checkMouse(event)
 
-	def _check_keyboard(self, event):
+	def _checkKeyboard(self, event):
 		""" Check for keyboard events. """
 		# keydown events
 		if event.type == KEYDOWN:
@@ -76,7 +76,7 @@ class Menu(object):
 				if self._index > 4:
 					self._index -= 5
 			if event.key == K_RETURN:
-				self._check_selection(self._index)
+				self._checkSelection(self._index)
 			# button selection
 			for button in self.buttons:
 				if button == self.buttons[self._index] and button.active:
@@ -84,12 +84,12 @@ class Menu(object):
 				else:
 					button.selected = False
 
-	def _check_mouse(self, event):
+	def _checkMouse(self, event):
 		""" Check for mouse events. """
 		# mouse motion events
 		if event.type == MOUSEMOTION:
 			for i in range(0, len(self.buttons)):
-				if self.buttons[i].is_hovered():
+				if self.buttons[i].isHovered():
 					self.buttons[i].selected = True
 					self._index = i
 				else:
@@ -97,10 +97,10 @@ class Menu(object):
 		# mouse click events
 		if event.type == MOUSEBUTTONUP:
 			for button in self.buttons:
-				if button.is_hovered():
-					self._check_selection(self._index)
+				if button.isHovered():
+					self._checkSelection(self._index)
 
-	def _check_quit(self, event):
+	def _checkQuit(self, event):
 		""" Checks if player wants to quit. """
 		if event.type == QUIT:
 			pygame.quit()
@@ -110,29 +110,29 @@ class Menu(object):
 				pygame.quit()
 				sys.exit()
 
-	def _check_selection(self, index):
+	def _checkSelection(self, index):
 		""" Checks the selected menu index. """
 		# back to game
 		if index == 0:
-			if self.back_button.active:
-				return self._choose_mode(BACK)
+			if self.backButton.active:
+				return self._chooseMode(BACK)
 		# new game
 		if index == 1:
-			self.back_button.set_active()
-			return self._choose_mode(NEW)
+			self.backButton.setActive()
+			return self._chooseMode(NEW)
 		# challenge
 		if index == 2:
-			self.back_button.set_active()
-			return self._choose_mode(CHALLENGE)
+			self.backButton.setActive()
+			return self._chooseMode(CHALLENGE)
 		# about
 		if index == 3:
-			return self._choose_mode(ABOUT)
+			return self._chooseMode(ABOUT)
 		# quit
 		if index == 4:
 			pygame.quit()
 			sys.exit()
 
-	def _choose_mode(self, mode):
+	def _chooseMode(self, mode):
 		""" Return the chosen game mode. """
 		return mode
 

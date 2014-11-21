@@ -1,6 +1,6 @@
 # demo.py
 
-import pygame, simplemenu
+import pygame, pymenu
 
 BLACK = (0, 0, 0)
 
@@ -11,12 +11,12 @@ WINDOWHEIGHT = 400
 pygame.init()
 
 def setUpMenu():
-	""" Example how to use the simplemenu and simplebutton classes. """
+	""" How to use the PyMenu and PyButton classes. """
 	# create the window
 	window = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 	pygame.display.set_caption("My Game")
 	# create the menu
-	menu = simplemenu.Menu(BLACK, WINDOWWIDTH, WINDOWHEIGHT)
+	menu = pymenu.PyMenu(BLACK, WINDOWWIDTH, WINDOWHEIGHT)
 	menu.draw(window)
 
 if __name__ == '__main__':
