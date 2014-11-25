@@ -1,8 +1,7 @@
 # demo.py
 
 import pygame, pymenu
-
-BLACK = (0, 0, 0)
+from constants import *
 
 # set up window
 WINDOWWIDTH = 500

@@ -1,12 +1,13 @@
 # pybutton.py
 
 import pygame
+from constants import *
 
 class PyButton(object):
 	""" A class that can create and draw buttons to the screen.
 		They change background colors with mouseovers. """
 
-	def __init__(self, x, y, textcolor, bgcolor, hovercolor, text):
+	def __init__(self, x, y, text, textcolor=WHITE, bgcolor=BLACK, hovercolor=GRAY):
 		""" Creates a button object and its attributes. """
 		self.x, self.y = x, y
 		self.text = text
@@ -47,7 +48,7 @@ class PyButton(object):
 		""" Sets a new hover bgcolor in case of a mouseover. """
 		self.bgcolor = self.hovercolor
 
-	def setHormal(self):
+	def setNormal(self):
 		""" Sets the bgcolor back to the normal color. """
 		self.bgcolor = self.color
 

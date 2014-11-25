@@ -2,9 +2,7 @@
 
 import pygame, pybutton, sys
 from pygame.locals import *
-
-GRAY = (100, 100, 100)
-WHITE = (255, 255, 255)
+from constants import *
 
 BACK, NEW, CHALLENGE, ABOUT = range(0,4)
 
@@ -19,12 +17,13 @@ class PyMenu(object):
 		self._index = 1
 		self.menucolor = menucolor
 		# menu buttons
-		self.titleButton = pybutton.PyButton(width/2, 45, WHITE, self.menucolor, self.menucolor, "My Game")
-		self.backButton = pybutton.PyButton(width/2, 100, WHITE, self.menucolor, GRAY, "Back to Game")
-		self.newButton = pybutton.PyButton(width/2, 130, WHITE, self.menucolor, GRAY, "New Game")
-		self.challengeButton = pybutton.PyButton(width/2, 160, WHITE, self.menucolor, GRAY, "Challenge")
-		self.aboutButton = pybutton.PyButton(width/2, 190, WHITE, self.menucolor, GRAY, "About")
-		self.quitButton = pybutton.PyButton(width/2, 220, WHITE, self.menucolor, GRAY, "Quit")
+		self.titleButton = pybutton.PyButton(width/2, 45, "My Game")
+		self.backButton = pybutton.PyButton(width/2, 100, "Back to Game")
+		self.newButton = pybutton.PyButton(width/2, 130, "New Game")
+		self.challengeButton = pybutton.PyButton(width/2, 160, "Challenge")
+		self.aboutButton = pybutton.PyButton(width/2, 190, "About")
+		self.quitButton = pybutton.PyButton(width/2, 220, "Quit")
+
 		self.buttons = [self.backButton, self.newButton, self.challengeButton, self.aboutButton, self.quitButton]
 
 		# deactivate buttons
@@ -48,7 +47,7 @@ class PyMenu(object):
 				if button.selected:
 					button.setHighlighted()
 				else:
-					button.setHormal()
+					button.setNormal()
 
 			# update menu
 			pygame.display.update()
