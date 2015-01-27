@@ -6,27 +6,21 @@ from constants import *
 
 class PyMenu(object):
 	""" A class that can create and draw a simple game menu 
-		with different buttons and colors, from where the
+		with custom buttons and colors, from where the
 		various game modes can be accessed. """
 
-	def __init__(self, menucolor, width, height):
+	def __init__(self, menucolor, width, height, title="My Game"):
 		""" Creates the necessary buttons and colors for a basic game menu. """
+		# menu buttons
+		self.titleButton = pybutton.PyButton(width/2, 45, title)
+		self.buttons = []
+		self.commands = []
+
 		# menu index
 		self._index = 1
+		self._maxIndex = len(self.buttons)-1
 		self.menucolor = menucolor
-		# menu buttons
-		self.titleButton = pybutton.PyButton(width/2, 45, "My Game")
-		self.backButton = pybutton.PyButton(width/2, 100, "Back to Game")
-		self.newButton = pybutton.PyButton(width/2, 130, "New Game")
-		self.challengeButton = pybutton.PyButton(width/2, 160, "Challenge")
-		self.aboutButton = pybutton.PyButton(width/2, 190, "About")
-		self.quitButton = pybutton.PyButton(width/2, 220, "Quit")
 
-		self.buttons = [self.backButton, self.newButton, self.challengeButton, self.aboutButton, self.quitButton]
-
-		# deactivate buttons
-		for button in [self.titleButton, self.backButton]:
-			button.setInactive()
 
 	def draw(self, surface):
 		""" Draws the menu screen on the surface. """
@@ -35,8 +29,10 @@ class PyMenu(object):
 			self._checkEvents()
 			# draw background
 			surface.fill(self.menucolor)
-			# draw buttons
+			# draw title
 			self.titleButton.draw(surface)
+			
+			# draw buttons
 			for button in self.buttons:
 				button.draw(surface)
 
@@ -49,6 +45,12 @@ class PyMenu(object):
 
 			# update menu
 			pygame.display.update()
+
+	def addButton(self, button, command):
+		""" Adds the given button to the menu. """
+		self.buttons.append(button)
+		self.commands.append(command)
+		self._maxIndex = len(self.buttons)-1
 
 	def _checkEvents(self):
 		""" Checks for pygame events. """
@@ -67,11 +69,11 @@ class PyMenu(object):
 			if event.key == K_UP or event.key == ord('w'):
 				self._index -= 1
 				if self._index < 0:
-					self._index += 5
+					self._index += (self._maxIndex+1)
 			if event.key == K_DOWN or event.key == ord('s'):
 				self._index += 1
-				if self._index > 4:
-					self._index -= 5
+				if self._index > (self._maxIndex):
+					self._index -= (self._maxIndex+1)
 			if event.key == K_RETURN:
 				self._checkSelection(self._index)
 			# button selection
@@ -85,7 +87,7 @@ class PyMenu(object):
 		""" Check for mouse events. """
 		# mouse motion events
 		if event.type == MOUSEMOTION:
-			for i in range(0, len(self.buttons)):
+			for i in range(0, (self._maxIndex+1)):
 				if self.buttons[i].isHovered():
 					self.buttons[i].selected = True
 					self._index = i
@@ -95,7 +97,7 @@ class PyMenu(object):
 		if event.type == MOUSEBUTTONUP:
 			for button in self.buttons:
 				if button.isHovered():
-					self._checkSelection(self._index)
+					self.commands[self._index]
 
 	def _checkQuit(self, event):
 		""" Checks if player wants to quit. """
@@ -107,29 +109,7 @@ class PyMenu(object):
 				pygame.quit()
 				sys.exit()
 
-	def _checkSelection(self, index):
+	def _runCommand(self, index):
 		""" Checks the selected menu index. """
-		# back to game
-		if index == 0:
-			if self.backButton.active:
-				# do something
-				print "Index " + str(index)
-		# new game
-		if index == 1:
-			self.backButton.setActive()
-			# do something
-			print "Index " + str(index)
-		# challenge
-		if index == 2:
-			self.backButton.setActive()
-			# do something
-			print "Index " + str(index)
-		# about
-		if index == 3:
-			# do something
-			print "Index " + str(index)
-		# quit
-		if index == 4:
-			pygame.quit()
-			sys.exit()
+		self.commands[index]
 
