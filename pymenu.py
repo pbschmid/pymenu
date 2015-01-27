@@ -4,12 +4,10 @@ import pygame, pybutton, sys
 from pygame.locals import *
 from constants import *
 
-BACK, NEW, CHALLENGE, ABOUT = range(0,4)
-
 class PyMenu(object):
 	""" A class that can create and draw a simple game menu 
 		with different buttons and colors, from where the
-		various game modes can be accessed by mouse clicks. """
+		various game modes can be accessed. """
 
 	def __init__(self, menucolor, width, height):
 		""" Creates the necessary buttons and colors for a basic game menu. """
@@ -114,24 +112,24 @@ class PyMenu(object):
 		# back to game
 		if index == 0:
 			if self.backButton.active:
-				return self._chooseMode(BACK)
+				# do something
+				print "Index " + str(index)
 		# new game
 		if index == 1:
 			self.backButton.setActive()
-			return self._chooseMode(NEW)
+			# do something
+			print "Index " + str(index)
 		# challenge
 		if index == 2:
 			self.backButton.setActive()
-			return self._chooseMode(CHALLENGE)
+			# do something
+			print "Index " + str(index)
 		# about
 		if index == 3:
-			return self._chooseMode(ABOUT)
+			# do something
+			print "Index " + str(index)
 		# quit
 		if index == 4:
 			pygame.quit()
 			sys.exit()
-
-	def _chooseMode(self, mode):
-		""" Return the chosen game mode. """
-		return mode
 

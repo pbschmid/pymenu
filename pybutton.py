@@ -5,7 +5,7 @@ from constants import *
 
 class PyButton(object):
 	""" A class that can create and draw buttons to the screen.
-		They change background colors with mouseovers. """
+		They can change background colors with mouseovers. """
 
 	def __init__(self, x, y, text, textcolor=WHITE, bgcolor=BLACK, hovercolor=GRAY):
 		""" Creates a button object and its attributes. """
