@@ -8,24 +8,20 @@ Still in development.
 Usage
 -----
 
-Simply initialize the pymenu, create buttons with the pybutton class, add the buttons to the menu and draw the menu to the screen.
+Simply initialize the menu, create the buttons with the pybutton class, add the buttons to the menu and draw the menu to the screen.
 
     # initialize the menu
     menu = pymenu.PyMenu(BLACK, WINDOWWIDTH, WINDOWHEIGHT)
   
-    # create buttons
-    backButton = pybutton.PyButton(WINDOWWIDTH/2, 100, "Back to Game")
+    # create the buttons
     newButton = pybutton.PyButton(WINDOWWIDTH/2, 130, "New Game")
-    challengeButton = pybutton.PyButton(WINDOWWIDTH/2, 160, "Challenge")
-    aboutButton = pybutton.PyButton(WINDOWWIDTH/2, 190, "About")
     quitButton = pybutton.PyButton(WINDOWWIDTH/2, 220, "Quit")
 
-    # add buttons to menu
-    menu.addButton(backButton, doSomething("Back to Game"))
-    menu.addButton(newButton, doSomething("New Game"))
-    menu.addButton(challengeButton, doSomething("Challenge"))
-    menu.addButton(aboutButton, doSomething("About"))
-    menu.addButton(quitButton, doSomething("Quit"))
+    # add the buttons and their actions to the menu
+    menu.addButton(newButton, callback)
+    menu.addButton(quitButton, callback)
 
-    # draw menu
+    # draw the menu
     menu.draw(window)
+
+You can find more information on how to use the class in the demo.py file.

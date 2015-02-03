@@ -7,22 +7,22 @@ from constants import *
 class PyMenu(object):
   """ A class that can create and draw a simple game menu 
     with custom buttons and colors, from where the
-    various game modes can be accessed. """
+    different game modes can be accessed. """
 
   def __init__(self, menucolor, width, height, title="My Game"):
-    """ Creates the necessary buttons and colors for a basic game menu. """
-    # menu buttons
+    """ Initializes the menu title, buttons, commands, index and color. """
+    # menu title, buttons and commands
     self.titleButton = pybutton.PyButton(width/2, 45, title)
     self.buttons = []
     self.commands = []
 
-    # menu index
+    # menu index and color
     self._index = 1
     self._maxIndex = len(self.buttons)-1
     self.menucolor = menucolor
 
   def draw(self, surface):
-    """ Draws the menu screen on the surface. """
+    """ Draws the menu screen to the surface. """
     while True:
       # check for events
       self._checkEvents()
@@ -74,7 +74,7 @@ class PyMenu(object):
         if self._index > (self._maxIndex):
           self._index -= (self._maxIndex+1)
       if event.key == K_RETURN:
-        self._checkSelection(self._index)
+        self._runCommand(self._index) # call button action
       # button selection
       for button in self.buttons:
         if button == self.buttons[self._index] and button.active:
@@ -96,7 +96,7 @@ class PyMenu(object):
     if event.type == MOUSEBUTTONUP:
       for button in self.buttons:
         if button.isHovered():
-          self._runCommand(self._index)
+          self._runCommand(self._index) # call button action
 
   def _checkQuit(self, event):
     """ Checks if player wants to quit. """
@@ -109,6 +109,5 @@ class PyMenu(object):
         sys.exit()
 
   def _runCommand(self, index):
-    """ Only a stub. """
-    # do something here
-    print self.commands[index]
+    """ Calls the function corresponding to the index. """
+    return self.commands[index](index)
