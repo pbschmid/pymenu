@@ -7,9 +7,11 @@ class PyButton(object):
   """ A class that can create and draw buttons to the screen.
     They can change background colors with mouseovers. """
 
-  def __init__(self, x, y, text, textcolor=WHITE, bgcolor=BLACK, hovercolor=GRAY):
+  def __init__(self, x, y, text, font="Krungthep", height=20, textcolor=WHITE, bgcolor=BLACK, hovercolor=GRAY):
     """ Creates a button object and its attributes. """
     self.x, self.y = x, y
+    self.font = font
+    self.height = height
     self.text = text
     self.textcolor = textcolor
     self.color = bgcolor
@@ -22,7 +24,7 @@ class PyButton(object):
 
   def _renderText(self):
     """ Renders the button text to a surface. """
-    font = pygame.font.SysFont("Krungthep", 20)
+    font = pygame.font.SysFont(self.font, self.height)
     surface = font.render(self.text, True, self.textcolor, self.bgcolor)
     return surface
 

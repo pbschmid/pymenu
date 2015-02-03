@@ -35,7 +35,7 @@ def setUpMenu():
   pygame.display.set_caption("My Game")
   
   # initialize the menu
-  menu = pymenu.PyMenu(BLACK, WINDOWWIDTH, WINDOWHEIGHT)
+  menu = pymenu.PyMenu(BLACK, WINDOWWIDTH/2, 45, "My Game")
   
   # create the buttons
   backButton = pybutton.PyButton(WINDOWWIDTH/2, 100, "Back to Game")

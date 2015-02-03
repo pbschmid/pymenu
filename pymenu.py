@@ -5,14 +5,14 @@ from pygame.locals import *
 from constants import *
 
 class PyMenu(object):
-  """ A class that can create and draw a simple game menu 
+  """ A class that can create and draw a simple game menu
     with custom buttons and colors, from where the
     different game modes can be accessed. """
 
-  def __init__(self, menucolor, width, height, title="My Game"):
+  def __init__(self, menucolor, x=0, y=0, title="", font="Krungthep"):
     """ Initializes the menu title, buttons, commands, index and color. """
     # menu title, buttons and commands
-    self.titleButton = pybutton.PyButton(width/2, 45, title)
+    self.titleButton = pybutton.PyButton(x, y, title, font)
     self.buttons = []
     self.commands = []
 
@@ -29,7 +29,8 @@ class PyMenu(object):
       # draw background
       surface.fill(self.menucolor)
       # draw title
-      self.titleButton.draw(surface)
+      if self.titleButton.text != "":
+        self.titleButton.draw(surface)
       
       # draw buttons
       for button in self.buttons:
